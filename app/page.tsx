@@ -23,7 +23,7 @@ export default function HomePage() {
         <h1 className="text-5xl md:text-7xl font-black leading-tight">
           YumeMotion Is
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-500">
-            Launching Soon!
+            Launching Soon
           </span>
         </h1>
 
