@@ -78,21 +78,21 @@ export default function HomePage() {
           </div>
 
           <div className="mt-10 grid grid-cols-3 gap-6 max-w-lg">
-            <div>
-              <p className="text-3xl font-black">AI</p>
-              <p className="text-gray-400 text-sm">Anime Creation</p>
-            </div>
+  <div>
+    <p className="text-3xl font-black">AI</p>
+    <p className="text-gray-400 text-sm">Anime Creation</p>
+  </div>
 
-            <div>
-              <p className="text-3xl font-black">2+</p>
-              <p className="text-gray-400 text-sm">Credit Images</p>
-            </div>
+  <div>
+    <p className="text-3xl font-black">2</p>
+    <p className="text-gray-400 text-sm">Image Credits</p>
+  </div>
 
-            <div>
-              <p className="text-3xl font-black">40+</p>
-              <p className="text-gray-400 text-sm">Credit Videos</p>
-            </div>
-          </div>
+  <div>
+    <p className="text-3xl font-black">40+</p>
+    <p className="text-gray-400 text-sm">Video Credits</p>
+  </div>
+</div>
         </div>
 
         <div className="relative flex justify-center">

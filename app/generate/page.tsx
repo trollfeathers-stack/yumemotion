@@ -137,6 +137,8 @@ const [quality, setQuality] = useState("Standard");
 const [motionStyle, setMotionStyle] = useState("Cinematic");
 const [videoDuration, setVideoDuration] = useState("5 seconds");
 const [cameraMovement, setCameraMovement] = useState("Slow Push In");
+const [sceneType, setSceneType] = useState("Cinematic Scene");
+const [animationMood, setAnimationMood] = useState("Dramatic");
   const [isRunning, setIsRunning] = useState(false);
   const [notice, setNotice] = useState("");
   const [resultMessage, setResultMessage] = useState("");
@@ -767,6 +769,27 @@ setTimeout(() => {
     </p>
   </div>
 )}
+
+<div className="mt-8">
+  <p className="text-sm text-gray-300 mb-3">
+    {currentTool.key === "prompt-enhancer"
+      ? "Your Simple Prompt"
+      : currentTool.key === "anime-image"
+      ? "Anime Image Prompt"
+      : currentTool.key === "photo-anime-video"
+      ? "Motion Prompt"
+      : currentTool.key === "text-anime-video"
+      ? "Scene Prompt"
+      : "Prompt / Instructions"}
+  </p>
+
+  <textarea
+    value={prompt}
+    onChange={(e) => setPrompt(e.target.value)}
+    placeholder={currentTool.placeholder}
+    className="w-full h-40 bg-black/40 border border-purple-500/20 rounded-2xl p-5 outline-none focus:border-purple-500 resize-none text-white placeholder:text-gray-500"
+  />
+</div>
 
               <div className="mt-8 flex flex-wrap gap-4">
                 <button
