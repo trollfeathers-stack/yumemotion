@@ -1,10 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
 export default function ProfilePage() {
-    const referralCode = "YUME-X9K7Q2M8P4";
-  const [copied, setCopied] = useState(false);
+    const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(true);
+    const [copied, setCopied] = useState(false);
+
+const [userName, setUserName] = useState("Creator");
+const [userEmail, setUserEmail] = useState("");
+
+const [credits, setCredits] = useState(0);
+const [referralCode, setReferralCode] = useState("");
+const [videosMade, setVideosMade] = useState(0);
+const [imagesMade, setImagesMade] = useState(0);
+const [creditsUsed, setCreditsUsed] = useState(0);
+const [planName, setPlanName] = useState("Free");
+const [monthlyCreditLimit, setMonthlyCreditLimit] = useState(20);
+      useEffect(() => {
+    async function checkUser() {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!session) {
+        router.push("/login");
+        return;
+      }
+
+      setUserEmail(session.user.email || "");
+      setUserName(session.user.user_metadata?.full_name || "Creator");
+
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select(
+  "full_name, email, credits, referral_code, videos_made, images_made, credits_used, plan_name, monthly_credit_limit"
+)
+        .eq("id", session.user.id)
+        .single();
+
+      if (!profileError && profile) {
+        setUserName(profile.full_name || "Creator");
+        setUserEmail(profile.email || session.user.email || "");
+        setCredits(profile.credits || 0);
+        setReferralCode(profile.referral_code || "");
+        setVideosMade(profile.videos_made || 0);
+        setImagesMade(profile.images_made || 0);
+        setCreditsUsed(profile.credits_used || 0);
+        setPlanName(profile.plan_name || "Free");
+        setMonthlyCreditLimit(profile.monthly_credit_limit || 20);
+      }
+
+      setCheckingAuth(false);
+    }
+
+    checkUser();
+  }, [router]);
+
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 animate-pulse mb-6"></div>
+          <p className="text-gray-300">Checking your account...</p>
+        </div>
+      </div>
+    );
+  }
 
   function copyReferralCode() {
     navigator.clipboard.writeText(referralCode);
@@ -14,7 +78,10 @@ export default function ProfilePage() {
       setCopied(false);
     }, 2000);
   }
-
+async function handleSignOut() {
+  await supabase.auth.signOut();
+  router.push("/login");
+}
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="absolute inset-0 bg-purple-900/20 blur-3xl"></div>
@@ -41,11 +108,12 @@ export default function ProfilePage() {
             </button>
           </Link>
 
-          <Link href="/">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-red-500/20 border border-red-500/30 hover:bg-red-500/30 transition-all">
-              Sign Out
-            </button>
-          </Link>
+          <button
+  onClick={handleSignOut}
+  className="px-4 py-2 text-sm md:text-base rounded-xl bg-red-500/20 border border-red-500/30 hover:bg-red-500/30 transition-all"
+>
+  Sign Out
+</button>
         </div>
       </nav>
 
@@ -54,7 +122,12 @@ export default function ProfilePage() {
         <section className="rounded-3xl bg-gradient-to-r from-purple-900/40 to-pink-900/30 border border-purple-500/20 p-8 shadow-2xl shadow-purple-500/10">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-28 h-28 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-4xl font-black shadow-lg shadow-purple-500/30">
-              YM
+              {userName
+  .split(" ")
+  .map((word) => word[0])
+  .join("")
+  .slice(0, 2)
+  .toUpperCase()}
             </div>
 
             <div className="text-center md:text-left">
@@ -65,6 +138,14 @@ export default function ProfilePage() {
             </div>
           </div>
         </section>
+        
+        <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-5 mt-5">
+  <p className="text-gray-400">Current Plan</p>
+  <h3 className="text-3xl font-black mt-2">{planName}</h3>
+  <p className="text-gray-400 mt-2">
+    {creditsUsed} / {monthlyCreditLimit} credits used
+  </p>
+</div>
 
         {/* Profile Info */}
         <section className="grid lg:grid-cols-2 gap-8 mt-10">
@@ -76,7 +157,8 @@ export default function ProfilePage() {
                 <p className="text-gray-400 text-sm mb-2">Full Name</p>
                 <input
                   type="text"
-                  defaultValue="Creator"
+                  value={userName}
+                  readOnly
                   className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
                 />
               </div>
@@ -85,13 +167,14 @@ export default function ProfilePage() {
                 <p className="text-gray-400 text-sm mb-2">Email Address</p>
                 <input
                   type="email"
-                  defaultValue="creator@yumemotion.com"
+                  value={userEmail}
+                  readOnly
                   className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
                 />
               </div>
 
               <button className="w-full py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-[1.02] transition-all font-semibold shadow-lg shadow-purple-500/30">
-                Save Changes
+                Profile Connected
               </button>
             </div>
           </div>
@@ -101,12 +184,12 @@ export default function ProfilePage() {
 
             <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6">
               <p className="text-gray-400">Available Credits</p>
-              <h4 className="text-5xl font-black mt-3">125</h4>
+              <h4 className="text-5xl font-black mt-3">{credits}</h4>
             </div>
 
             <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-6">
-              <p className="text-gray-400">Monthly Usage</p>
-              <h4 className="text-4xl font-black mt-3">75 / 200</h4>
+              <p className="text-gray-400">Total Usage</p>
+              <h4 className="text-4xl font-black mt-3">{creditsUsed} Credits Used</h4>
 
               <div className="w-full h-4 bg-black/60 rounded-full overflow-hidden mt-5">
                 <div className="h-full w-[40%] bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"></div>
@@ -125,7 +208,7 @@ export default function ProfilePage() {
 
           <div className="mt-8 flex flex-col md:flex-row gap-4 items-center">
             <div className="px-6 py-4 rounded-2xl bg-black/40 border border-purple-500/20 text-xl tracking-widest font-bold">
-              {referralCode}
+              {referralCode || "Loading..."}
             </div>
 
             <button

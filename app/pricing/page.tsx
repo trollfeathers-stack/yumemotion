@@ -176,25 +176,47 @@ export default function PricingPage() {
         <section className="mt-14 rounded-3xl bg-white/5 border border-purple-500/20 p-8 backdrop-blur-xl">
           <h3 className="text-3xl font-bold">How Credits Work</h3>
 
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6">
-              <p className="text-4xl mb-4">🎨</p>
-              <h4 className="text-xl font-bold">Anime Image</h4>
-              <p className="text-gray-400 mt-2">Costs 1 credit per generation.</p>
-            </div>
+          <div className="grid gap-5 mt-6">
+  <div className="rounded-3xl bg-gradient-to-r from-pink-500/15 to-purple-600/10 border border-pink-500/30 p-7 shadow-lg shadow-pink-500/10">
+    <div className="flex items-center justify-between gap-4">
+      <div>
+        <p className="text-pink-300 text-sm font-semibold">🎨 Anime Image</p>
+        <h4 className="text-4xl font-black mt-2">2 Credits</h4>
+      </div>
+      <span className="text-4xl">✨</span>
+    </div>
+  </div>
 
-            <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6">
-              <p className="text-4xl mb-4">🎬</p>
-              <h4 className="text-xl font-bold">Anime Video</h4>
-              <p className="text-gray-400 mt-2">Costs 5 credits per video generation.</p>
-            </div>
+  <div className="rounded-3xl bg-gradient-to-r from-purple-500/15 to-blue-600/10 border border-purple-500/30 p-7 shadow-lg shadow-purple-500/10">
+    <div className="flex items-center justify-between gap-4">
+      <div>
+        <p className="text-purple-300 text-sm font-semibold">🖼️ Photo → Anime Video</p>
+        <h4 className="text-4xl font-black mt-2">40 Credits</h4>
+      </div>
+      <span className="text-4xl">🎬</span>
+    </div>
+  </div>
 
-            <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6">
-              <p className="text-4xl mb-4">🎁</p>
-              <h4 className="text-xl font-bold">Referral Bonus</h4>
-              <p className="text-gray-400 mt-2">Earn bonus credits when friends join.</p>
-            </div>
-          </div>
+  <div className="rounded-3xl bg-gradient-to-r from-cyan-500/15 to-purple-600/10 border border-cyan-500/30 p-7 shadow-lg shadow-cyan-500/10">
+    <div className="flex items-center justify-between gap-4">
+      <div>
+        <p className="text-cyan-300 text-sm font-semibold">✍️ Text → Anime Video</p>
+        <h4 className="text-4xl font-black mt-2">80 Credits</h4>
+      </div>
+      <span className="text-4xl">⚡</span>
+    </div>
+  </div>
+
+  <div className="rounded-3xl bg-gradient-to-r from-yellow-500/15 to-pink-600/10 border border-yellow-500/30 p-7 shadow-lg shadow-yellow-500/10">
+    <div className="flex items-center justify-between gap-4">
+      <div>
+        <p className="text-yellow-300 text-sm font-semibold">🎁 Referral Bonus</p>
+        <h4 className="text-4xl font-black mt-2">+5 Credits</h4>
+      </div>
+      <span className="text-4xl">🚀</span>
+    </div>
+  </div>
+</div>
         </section>
       </main>
     </div>
