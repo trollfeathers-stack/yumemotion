@@ -76,8 +76,7 @@ const tools: Tool[] = [
     icon: "✨",
     category: "Create",
     credits: 1,
-    description:
-      "Turn a simple idea into a stronger, detailed anime prompt.",
+    description: "Turn a simple idea into a stronger, detailed anime prompt.",
     placeholder: "Example: cool boy in rain",
   },
   {
@@ -86,8 +85,7 @@ const tools: Tool[] = [
     icon: "🔍",
     category: "Edit",
     credits: 4,
-    description:
-      "Improve anime image clarity and upscale it for sharper output.",
+    description: "Improve anime image clarity and upscale it for sharper output.",
     placeholder: "Optional: describe what quality you want improved...",
     requiresUpload: true,
   },
@@ -371,9 +369,14 @@ export default function GeneratePage() {
 
   if (checkingAuth) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="mx-auto w-20 h-20 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 animate-pulse mb-6"></div>
+      <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden">
+        <div className="fixed inset-0 pointer-events-none">
+          <div className="absolute top-20 left-20 w-80 h-80 bg-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-700/20 rounded-full blur-3xl animate-pulse"></div>
+        </div>
+
+        <div className="relative z-10 text-center animate-fade-in-up">
+          <div className="mx-auto w-24 h-24 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 animate-spin-slow mb-6 shadow-2xl shadow-purple-500/30"></div>
           <p className="text-gray-300">Loading YumeMotion workspace...</p>
         </div>
       </div>
@@ -381,15 +384,21 @@ export default function GeneratePage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="absolute inset-0 bg-purple-900/20 blur-3xl"></div>
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 -right-32 w-[500px] h-[500px] bg-purple-700/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+      </div>
 
-      <nav className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 md:px-8 py-4 md:py-5 border-b border-purple-500/20 backdrop-blur-xl">
-        <Link href="/" className="flex items-center gap-3">
+      <nav className="relative z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 md:px-8 py-4 md:py-5 border-b border-purple-500/20 backdrop-blur-xl bg-black/70">
+        <Link href="/" className="flex items-center gap-3 group">
           <img
             src="/logo.png"
             alt="YumeMotion Logo"
-            className="w-12 h-12 object-contain"
+            className="w-12 h-12 object-contain transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
           />
           <div>
             <h1 className="text-2xl font-bold">YumeMotion</h1>
@@ -398,24 +407,24 @@ export default function GeneratePage() {
         </Link>
 
         <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
-          <div className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20">
+          <div className="px-4 py-2 text-sm md:text-base rounded-xl bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 shadow-lg shadow-purple-500/10">
             {credits} Credits
           </div>
 
           <Link href="/dashboard">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
               Dashboard
             </button>
           </Link>
 
           <Link href="/pricing">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
               Pricing
             </button>
           </Link>
 
           <Link href="/profile">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
               Profile
             </button>
           </Link>
@@ -431,7 +440,8 @@ export default function GeneratePage() {
 
       <main className="relative z-10 px-4 md:px-8 py-6">
         <div className="grid lg:grid-cols-[280px_1fr] gap-6">
-          <aside className="rounded-3xl bg-white/5 border border-purple-500/20 p-5 backdrop-blur-xl">
+          {/* Sidebar */}
+          <aside className="rounded-3xl bg-white/5 border border-purple-500/20 p-5 backdrop-blur-xl shadow-2xl shadow-purple-500/10 animate-fade-in-left">
             <div className="mb-6">
               <p className="text-gray-400 text-sm">Workspace</p>
               <h2 className="text-2xl font-black mt-2">Generate Tools</h2>
@@ -440,7 +450,7 @@ export default function GeneratePage() {
               </p>
             </div>
 
-            <div className="mb-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4">
+            <div className="mb-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4 hover:border-purple-400/50 transition-all">
               <p className="text-sm text-gray-400">Logged in as</p>
               <h3 className="text-xl font-bold mt-2">{userName}</h3>
               <p className="text-purple-300 mt-2">Plan: {planName}</p>
@@ -456,15 +466,21 @@ export default function GeneratePage() {
                   <button
                     key={tool.key}
                     onClick={() => selectTool(tool.key)}
-                    className={`w-full text-left p-4 rounded-2xl border transition-all ${
+                    className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 ${
                       selectedTool === tool.key
-                        ? "bg-gradient-to-r from-pink-500/20 to-purple-500/20 border-pink-500/40"
-                        : "bg-black/30 border-purple-500/20 hover:bg-white/5"
+                        ? "bg-gradient-to-r from-pink-500/25 to-purple-500/20 border-pink-500/50 shadow-lg shadow-pink-500/10 scale-[1.02]"
+                        : "bg-black/30 border-purple-500/20 hover:bg-white/5 hover:translate-x-1 hover:border-purple-400/40"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-3">
-                        <span className="text-xl">{tool.icon}</span>
+                        <span
+                          className={`text-xl ${
+                            selectedTool === tool.key ? "animate-bounce-soft" : ""
+                          }`}
+                        >
+                          {tool.icon}
+                        </span>
                         <div>
                           <p className="font-semibold">{tool.label}</p>
                           <p className="text-xs text-gray-400">
@@ -474,7 +490,7 @@ export default function GeneratePage() {
                       </div>
 
                       {tool.paidOnly && (
-                        <span className="text-[10px] px-2 py-1 rounded-full bg-purple-500/20 text-purple-200">
+                        <span className="text-[10px] px-2 py-1 rounded-full bg-purple-500/20 text-purple-200 border border-purple-500/20">
                           Paid
                         </span>
                       )}
@@ -494,14 +510,20 @@ export default function GeneratePage() {
                   <button
                     key={tool.key}
                     onClick={() => selectTool(tool.key)}
-                    className={`w-full text-left p-4 rounded-2xl border transition-all ${
+                    className={`w-full text-left p-4 rounded-2xl border transition-all duration-300 ${
                       selectedTool === tool.key
-                        ? "bg-gradient-to-r from-pink-500/20 to-purple-500/20 border-pink-500/40"
-                        : "bg-black/30 border-purple-500/20 hover:bg-white/5"
+                        ? "bg-gradient-to-r from-pink-500/25 to-purple-500/20 border-pink-500/50 shadow-lg shadow-pink-500/10 scale-[1.02]"
+                        : "bg-black/30 border-purple-500/20 hover:bg-white/5 hover:translate-x-1 hover:border-purple-400/40"
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xl">{tool.icon}</span>
+                      <span
+                        className={`text-xl ${
+                          selectedTool === tool.key ? "animate-bounce-soft" : ""
+                        }`}
+                      >
+                        {tool.icon}
+                      </span>
                       <div>
                         <p className="font-semibold">{tool.label}</p>
                         <p className="text-xs text-gray-400">
@@ -515,14 +537,20 @@ export default function GeneratePage() {
             </div>
           </aside>
 
-          <section className="space-y-6">
-            <div className="rounded-3xl bg-gradient-to-r from-purple-900/40 to-pink-900/20 border border-purple-500/20 p-6 md:p-8">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          {/* Main Content */}
+          <section className="space-y-6 animate-fade-in-up">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-purple-900/50 to-pink-900/20 border border-purple-500/20 p-6 md:p-8 shadow-2xl shadow-purple-500/10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(236,72,153,0.18),transparent_35%)]"></div>
+              <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-pink-500/20 blur-3xl animate-pulse"></div>
+
+              <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                   <p className="text-sm text-purple-300">Selected AI Tool</p>
 
                   <h2 className="text-4xl font-black mt-2 flex items-center gap-3">
-                    <span>{currentTool.icon}</span>
+                    <span className="animate-bounce-soft">
+                      {currentTool.icon}
+                    </span>
                     {currentTool.label}
                   </h2>
 
@@ -531,7 +559,7 @@ export default function GeneratePage() {
                   </p>
                 </div>
 
-                <div className="rounded-2xl bg-black/40 border border-purple-500/20 px-6 py-5 min-w-[180px]">
+                <div className="rounded-2xl bg-black/40 border border-purple-500/20 px-6 py-5 min-w-[180px] hover:scale-105 transition-all">
                   <p className="text-sm text-gray-400">Credits Required</p>
                   <h3 className="text-4xl font-black mt-2">
                     {currentTool.credits}
@@ -541,28 +569,28 @@ export default function GeneratePage() {
             </div>
 
             <div className="grid md:grid-cols-4 gap-4">
-              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5 hover:-translate-y-1 hover:border-pink-500/40 transition-all">
                 <p className="text-gray-400 text-sm">Credits</p>
                 <h3 className="text-3xl font-black mt-2">{credits}</h3>
               </div>
 
-              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5 hover:-translate-y-1 hover:border-purple-400/50 transition-all">
                 <p className="text-gray-400 text-sm">Credits Used</p>
                 <h3 className="text-3xl font-black mt-2">{creditsUsed}</h3>
               </div>
 
-              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5 hover:-translate-y-1 hover:border-cyan-400/40 transition-all">
                 <p className="text-gray-400 text-sm">Images Created</p>
                 <h3 className="text-3xl font-black mt-2">{imagesMade}</h3>
               </div>
 
-              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5 hover:-translate-y-1 hover:border-pink-400/40 transition-all">
                 <p className="text-gray-400 text-sm">Videos Created</p>
                 <h3 className="text-3xl font-black mt-2">{videosMade}</h3>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/5 border border-purple-500/20 p-6 md:p-8 backdrop-blur-xl">
+            <div className="rounded-3xl bg-white/5 border border-purple-500/20 p-6 md:p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
                   <h3 className="text-3xl font-bold">{currentTool.label}</h3>
@@ -582,11 +610,11 @@ export default function GeneratePage() {
               </div>
 
               {currentTool.requiresUpload && (
-                <div className="mt-8">
+                <div className="mt-8 animate-fade-in-up">
                   <p className="text-sm text-gray-300 mb-3">Upload Image</p>
 
-                  <div className="rounded-2xl border border-dashed border-purple-500/30 bg-black/30 p-8 text-center">
-                    <p className="text-5xl mb-4">📤</p>
+                  <div className="rounded-2xl border border-dashed border-purple-500/30 bg-black/30 p-8 text-center hover:border-pink-500/50 hover:bg-white/[0.04] transition-all">
+                    <p className="text-5xl mb-4 animate-float-small">📤</p>
                     <p className="text-lg font-semibold">
                       Upload anime image or character image
                     </p>
@@ -594,7 +622,7 @@ export default function GeneratePage() {
                       Upload support will be connected later for real AI processing.
                     </p>
 
-                    <button className="mt-5 px-6 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+                    <button className="mt-5 px-6 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:scale-105 transition-all">
                       Choose Image
                     </button>
                   </div>
@@ -602,13 +630,13 @@ export default function GeneratePage() {
               )}
 
               {currentTool.key === "anime-image" && (
-                <div className="mt-8 grid md:grid-cols-3 gap-4">
+                <div className="mt-8 grid md:grid-cols-3 gap-4 animate-fade-in-up">
                   <div>
                     <p className="text-sm text-gray-300 mb-3">Anime Style</p>
                     <select
                       value={animeStyle}
                       onChange={(e) => setAnimeStyle(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Cyberpunk Anime</option>
                       <option>Shonen Battle</option>
@@ -626,7 +654,7 @@ export default function GeneratePage() {
                     <select
                       value={aspectRatio}
                       onChange={(e) => setAspectRatio(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Portrait 9:16</option>
                       <option>Square 1:1</option>
@@ -640,7 +668,7 @@ export default function GeneratePage() {
                     <select
                       value={quality}
                       onChange={(e) => setQuality(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Standard</option>
                       <option>High Quality</option>
@@ -651,13 +679,13 @@ export default function GeneratePage() {
               )}
 
               {currentTool.key === "photo-anime-video" && (
-                <div className="mt-8 grid md:grid-cols-3 gap-4">
+                <div className="mt-8 grid md:grid-cols-3 gap-4 animate-fade-in-up">
                   <div>
                     <p className="text-sm text-gray-300 mb-3">Motion Style</p>
                     <select
                       value={motionStyle}
                       onChange={(e) => setMotionStyle(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Cinematic</option>
                       <option>Soft Anime Motion</option>
@@ -673,7 +701,7 @@ export default function GeneratePage() {
                     <select
                       value={videoDuration}
                       onChange={(e) => setVideoDuration(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>5 seconds</option>
                       <option>8 seconds</option>
@@ -688,7 +716,7 @@ export default function GeneratePage() {
                     <select
                       value={cameraMovement}
                       onChange={(e) => setCameraMovement(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Slow Push In</option>
                       <option>Slow Zoom Out</option>
@@ -702,13 +730,13 @@ export default function GeneratePage() {
               )}
 
               {currentTool.key === "text-anime-video" && (
-                <div className="mt-8 grid md:grid-cols-3 gap-4">
+                <div className="mt-8 grid md:grid-cols-3 gap-4 animate-fade-in-up">
                   <div>
                     <p className="text-sm text-gray-300 mb-3">Scene Type</p>
                     <select
                       value={sceneType}
                       onChange={(e) => setSceneType(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Cinematic Scene</option>
                       <option>Action Battle</option>
@@ -725,7 +753,7 @@ export default function GeneratePage() {
                     <select
                       value={videoDuration}
                       onChange={(e) => setVideoDuration(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>5 seconds</option>
                       <option>8 seconds</option>
@@ -738,7 +766,7 @@ export default function GeneratePage() {
                     <select
                       value={animationMood}
                       onChange={(e) => setAnimationMood(e.target.value)}
-                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500"
+                      className="w-full bg-black/40 border border-purple-500/20 rounded-2xl px-5 py-4 outline-none focus:border-purple-500 hover:border-purple-400/50 transition-all"
                     >
                       <option>Dramatic</option>
                       <option>Calm</option>
@@ -752,7 +780,7 @@ export default function GeneratePage() {
                 </div>
               )}
 
-              <div className="mt-8">
+              <div className="mt-8 animate-fade-in-up">
                 <p className="text-sm text-gray-300 mb-3">
                   {currentTool.key === "prompt-enhancer"
                     ? "Your Simple Prompt"
@@ -769,12 +797,12 @@ export default function GeneratePage() {
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder={currentTool.placeholder}
-                  className="w-full h-40 bg-black/40 border border-purple-500/20 rounded-2xl p-5 outline-none focus:border-purple-500 resize-none text-white placeholder:text-gray-500"
+                  className="w-full h-40 bg-black/40 border border-purple-500/20 rounded-2xl p-5 outline-none focus:border-purple-500 resize-none text-white placeholder:text-gray-500 hover:border-purple-400/50 transition-all"
                 />
               </div>
 
               {currentTool.key === "anime-image" && (
-                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5">
+                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
                     Anime Image Settings
                   </p>
@@ -816,7 +844,7 @@ export default function GeneratePage() {
               )}
 
               {currentTool.key === "photo-anime-video" && (
-                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5">
+                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
                     Photo → Anime Video Settings
                   </p>
@@ -868,7 +896,7 @@ export default function GeneratePage() {
               )}
 
               {currentTool.key === "text-anime-video" && (
-                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5">
+                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
                     Text → Anime Video Settings
                   </p>
@@ -913,19 +941,19 @@ export default function GeneratePage() {
               )}
 
               {notice && (
-                <div className="mt-6 rounded-2xl bg-purple-500/10 border border-purple-500/20 p-4 text-purple-200">
+                <div className="mt-6 rounded-2xl bg-purple-500/10 border border-purple-500/20 p-4 text-purple-200 animate-fade-in-up">
                   {notice}
                 </div>
               )}
 
               {resultMessage && (
-                <div className="mt-6 rounded-2xl bg-green-500/10 border border-green-500/20 p-4 text-green-200">
+                <div className="mt-6 rounded-2xl bg-green-500/10 border border-green-500/20 p-4 text-green-200 animate-fade-in-up">
                   {resultMessage}
                 </div>
               )}
 
               {currentTool.key === "prompt-enhancer" && enhancedPrompt && (
-                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5">
+                <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-5 animate-fade-in-up">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
                       <p className="text-sm text-purple-300 font-semibold">
@@ -940,7 +968,7 @@ export default function GeneratePage() {
                       onClick={() =>
                         navigator.clipboard.writeText(enhancedPrompt)
                       }
-                      className="px-5 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all"
+                      className="px-5 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:scale-105 transition-all"
                     >
                       Copy Prompt
                     </button>
@@ -956,9 +984,13 @@ export default function GeneratePage() {
                 <button
                   onClick={handleRunTool}
                   disabled={isRunning}
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-[1.02] transition-all font-semibold shadow-lg shadow-purple-500/30 disabled:opacity-70"
+                  className="relative overflow-hidden px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-[1.02] transition-all font-semibold shadow-lg shadow-purple-500/30 disabled:opacity-70 group"
                 >
-                  {isRunning ? "Processing..." : `Run ${currentTool.label}`}
+                  <span className="relative z-10">
+                    {isRunning ? "Processing..." : `Run ${currentTool.label}`}
+                  </span>
+
+                  <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
                 </button>
 
                 <button
@@ -968,14 +1000,14 @@ export default function GeneratePage() {
                     setResultMessage("");
                     setEnhancedPrompt("");
                   }}
-                  className="px-8 py-4 rounded-2xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all"
+                  className="px-8 py-4 rounded-2xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:scale-[1.02] transition-all"
                 >
                   Clear
                 </button>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/5 border border-purple-500/20 p-6 md:p-8 backdrop-blur-xl">
+            <div className="rounded-3xl bg-white/5 border border-purple-500/20 p-6 md:p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5">
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h3 className="text-3xl font-bold">Recent Activity</h3>
@@ -987,7 +1019,7 @@ export default function GeneratePage() {
                 {history.length > 0 && (
                   <button
                     onClick={clearHistory}
-                    className="px-5 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all"
+                    className="px-5 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:scale-105 transition-all"
                   >
                     Clear History
                   </button>
@@ -1003,7 +1035,7 @@ export default function GeneratePage() {
                   {history.map((item) => (
                     <div
                       key={item.id}
-                      className="rounded-2xl bg-black/30 border border-purple-500/20 p-5"
+                      className="rounded-2xl bg-black/30 border border-purple-500/20 p-5 hover:-translate-y-1 hover:border-purple-400/50 transition-all"
                     >
                       <p className="text-sm text-purple-300">{item.tool}</p>
                       <h4 className="text-xl font-bold mt-2">{item.result}</h4>
@@ -1018,6 +1050,79 @@ export default function GeneratePage() {
           </section>
         </div>
       </main>
+
+      <style jsx global>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(22px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fade-in-left {
+          from {
+            opacity: 0;
+            transform: translateX(-22px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes bounce-soft {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-4px);
+          }
+        }
+
+        @keyframes float-small {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.7s ease-out both;
+        }
+
+        .animate-fade-in-left {
+          animation: fade-in-left 0.7s ease-out both;
+        }
+
+        .animate-bounce-soft {
+          animation: bounce-soft 2s ease-in-out infinite;
+        }
+
+        .animate-float-small {
+          animation: float-small 3s ease-in-out infinite;
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 2.8s linear infinite;
+        }
+      `}</style>
     </div>
   );
 }
