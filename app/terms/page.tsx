@@ -3,16 +3,55 @@
 import Link from "next/link";
 
 export default function TermsPage() {
-  return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="absolute inset-0 bg-purple-900/20 blur-3xl"></div>
+  const sections = [
+    {
+      title: "1. About YumeMotion",
+      icon: "🌙",
+      text: "YumeMotion is an AI anime image and video creation platform. The current version may include prototype features, demo interfaces, placeholder outputs, and experimental tools.",
+    },
+    {
+      title: "2. User Accounts",
+      icon: "👤",
+      text: "Users are responsible for keeping their account information safe. You should not share your login details with others.",
+    },
+    {
+      title: "3. Credits",
+      icon: "⚡",
+      text: "YumeMotion may use a credit system for anime image and video generation. Credit pricing, usage rules, and bonuses may change as the platform develops.",
+    },
+    {
+      title: "4. AI Generated Content",
+      icon: "🎨",
+      text: "Users are responsible for the prompts they enter and the content they create. Do not use YumeMotion to create harmful, illegal, abusive, copyrighted, or misleading content.",
+    },
+    {
+      title: "5. Platform Changes",
+      icon: "🛠️",
+      text: "YumeMotion may change, pause, remove, or improve features at any time, especially while the platform is under development.",
+    },
+    {
+      title: "6. Contact",
+      icon: "📩",
+      text: "For questions about these terms, contact us through the Contact page.",
+    },
+  ];
 
-      <nav className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 md:px-8 py-4 md:py-5 border-b border-purple-500/20 backdrop-blur-xl">
-        <Link href="/" className="flex items-center gap-3">
+  return (
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 -right-32 w-[500px] h-[500px] bg-purple-700/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:72px_72px]"></div>
+      </div>
+
+      <nav className="relative z-50 flex flex-col md:flex-row md:items-center md:justify-between gap-4 px-4 md:px-8 py-4 md:py-5 border-b border-purple-500/20 backdrop-blur-xl bg-black/70">
+        <Link href="/" className="flex items-center gap-3 group">
           <img
             src="/logo.png"
             alt="YumeMotion Logo"
-            className="w-12 h-12 object-contain"
+            className="w-12 h-12 object-contain transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
           />
 
           <div>
@@ -23,110 +62,150 @@ export default function TermsPage() {
 
         <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
           <Link href="/pricing">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
               Pricing
             </button>
           </Link>
 
           <Link href="/contact">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 transition-all">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
               Contact
             </button>
           </Link>
 
           <Link href="/signup">
-            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all shadow-lg shadow-purple-500/30">
-              Sign Up
+            <button className="relative overflow-hidden px-4 py-2 text-sm md:text-base rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all shadow-lg shadow-purple-500/30 group">
+              <span className="relative z-10">Sign Up</span>
+              <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
             </button>
           </Link>
         </div>
       </nav>
 
       <main className="relative z-10 px-6 md:px-12 py-14">
-        <section className="max-w-4xl mx-auto">
-          <div className="inline-block px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6">
-            Legal
+        <section className="max-w-5xl mx-auto">
+          <div className="text-center animate-fade-in-up">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6 shadow-lg shadow-purple-500/10">
+              <span className="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
+              Legal
+            </div>
+
+            <h2 className="text-5xl md:text-6xl font-black">
+              Terms of{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-300 animate-gradient">
+                Service
+              </span>
+            </h2>
+
+            <p className="text-gray-400 mt-4">Last updated: 2026</p>
+
+            <p className="text-gray-300 mt-6 max-w-3xl mx-auto text-lg">
+              These terms explain the basic rules for using YumeMotion while the
+              platform is being developed and improved.
+            </p>
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-black">
-            Terms of Service
-          </h2>
+          <div className="mt-12 rounded-3xl bg-white/5 border border-purple-500/20 p-6 sm:p-10 backdrop-blur-xl shadow-2xl shadow-purple-500/10 animate-fade-in-up">
+            <div className="grid gap-6">
+              {sections.map((section) => (
+                <section
+                  key={section.title}
+                  className="rounded-2xl bg-black/40 border border-purple-500/20 p-6 hover:-translate-y-1 hover:border-purple-400/50 transition-all"
+                >
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-3xl shrink-0 animate-float-small">
+                      {section.icon}
+                    </div>
 
-          <p className="text-gray-400 mt-4">
-            Last updated: 2026
-          </p>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white">
+                        {section.title}
+                      </h3>
 
-          <div className="mt-10 space-y-8 rounded-3xl bg-white/5 border border-purple-500/20 p-6 sm:p-10 backdrop-blur-xl text-gray-300 leading-relaxed">
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                1. About YumeMotion
-              </h3>
-              <p>
-                YumeMotion is an AI anime image and video creation platform. The
-                current version may include prototype features, demo interfaces,
-                placeholder outputs, and experimental tools.
+                      <p className="text-gray-300 leading-relaxed mt-3">
+                        {section.text}
+                      </p>
+                    </div>
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            <div className="mt-8 rounded-2xl bg-gradient-to-r from-purple-900/40 to-pink-900/20 border border-purple-500/20 p-6">
+              <h3 className="text-2xl font-bold">Important Note</h3>
+
+              <p className="text-sm text-gray-400 mt-3 leading-relaxed">
+                This is a basic starter terms page for an early MVP and is not a
+                substitute for professional legal advice. Before public launch,
+                review this page with a legal professional and update it based
+                on your actual payment rules, refund rules, API providers,
+                content policy, and commercial usage policy.
               </p>
-            </section>
+            </div>
 
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                2. User Accounts
-              </h3>
-              <p>
-                Users are responsible for keeping their account information safe.
-                You should not share your login details with others.
-              </p>
-            </section>
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <Link href="/privacy">
+                <button className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
+                  View Privacy Policy
+                </button>
+              </Link>
 
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                3. Credits
-              </h3>
-              <p>
-                YumeMotion may use a credit system for anime image and video
-                generation. Credit pricing, usage rules, and bonuses may change
-                as the platform develops.
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                4. AI Generated Content
-              </h3>
-              <p>
-                Users are responsible for the prompts they enter and the content
-                they create. Do not use YumeMotion to create harmful, illegal,
-                abusive, copyrighted, or misleading content.
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                5. Platform Changes
-              </h3>
-              <p>
-                YumeMotion may change, pause, remove, or improve features at any
-                time, especially while the platform is under development.
-              </p>
-            </section>
-
-            <section>
-              <h3 className="text-2xl font-bold text-white mb-3">
-                6. Contact
-              </h3>
-              <p>
-                For questions about these terms, contact us through the Contact
-                page.
-              </p>
-            </section>
-
-            <p className="text-sm text-gray-500">
-              Note: This is a basic starter terms page for an early MVP and is
-              not a substitute for professional legal advice.
-            </p>
+              <Link href="/contact">
+                <button className="relative overflow-hidden w-full sm:w-auto px-7 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-lg shadow-purple-500/30 group">
+                  <span className="relative z-10">Contact Support</span>
+                  <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
+                </button>
+              </Link>
+            </div>
           </div>
         </section>
       </main>
+
+      <style jsx global>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(22px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes float-small {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+
+        @keyframes gradient {
+          0%,
+          100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.7s ease-out both;
+        }
+
+        .animate-float-small {
+          animation: float-small 3s ease-in-out infinite;
+        }
+
+        .animate-gradient {
+          background-size: 250% 250%;
+          animation: gradient 4s ease infinite;
+        }
+      `}</style>
     </div>
   );
 }
