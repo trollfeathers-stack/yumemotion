@@ -27,7 +27,7 @@ export default function HomePage() {
 
           <div>
             <h1 className="text-2xl font-bold tracking-wide">YumeMotion</h1>
-            <p className="text-xs text-gray-400">AI Anime Video Platform</p>
+            <p className="text-xs text-gray-400">AI Anime Creation Platform</p>
           </div>
         </Link>
 
@@ -46,18 +46,18 @@ export default function HomePage() {
 
           <Link href="/signup">
             <button className="px-4 md:px-5 py-2 text-sm md:text-base rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all shadow-lg shadow-purple-500/30">
-              Sign Up
+              Join Early Access
             </button>
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="relative z-10 px-6 md:px-16 pt-40 pb-24 grid md:grid-cols-2 gap-16 items-center">
+      <section className="relative z-10 px-6 md:px-16 pt-44 md:pt-40 pb-24 grid md:grid-cols-2 gap-16 items-center">
         <div className="animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6 shadow-lg shadow-purple-500/10">
             <span className="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-            Create AI Anime Images & Videos
+            Early Access Demo Mode
           </div>
 
           <h2 className="text-5xl md:text-7xl font-black leading-tight">
@@ -69,39 +69,52 @@ export default function HomePage() {
           </h2>
 
           <p className="mt-8 text-lg text-gray-300 max-w-xl leading-relaxed">
-            YumeMotion helps creators generate anime characters, cinematic scenes,
-            action poses, and short anime videos using AI-powered creation tools.
+            YumeMotion is an early-access AI anime creation platform for anime
+            images, cinematic video concepts, prompt enhancement, thumbnails,
+            and creator tools. Real AI generation APIs are being tested and will
+            be launched after payment and API setup is complete.
           </p>
+
+          <div className="mt-6 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 p-5 max-w-xl">
+            <p className="text-yellow-300 font-semibold">
+              ⚠️ Current Status: Demo / Testing Mode
+            </p>
+            <p className="text-gray-300 text-sm mt-2 leading-relaxed">
+              You can explore the interface, create an account, test the credit
+              system, and preview the generator workflow. Real paid AI
+              generation will be enabled after launch.
+            </p>
+          </div>
 
           <div className="mt-10 flex flex-wrap gap-4">
             <Link href="/signup">
               <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-2xl shadow-purple-500/30 relative overflow-hidden group">
-                <span className="relative z-10">Start Creating Free</span>
+                <span className="relative z-10">Join Early Access</span>
                 <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
               </button>
             </Link>
 
             <Link href="/generate">
               <button className="px-8 py-4 rounded-2xl border border-purple-500/30 bg-white/5 hover:bg-white/10 hover:border-purple-400/60 transition-all">
-                Try Generator
+                Preview Generator
               </button>
             </Link>
           </div>
 
-          <div className="mt-10 grid grid-cols-3 gap-6 max-w-lg">
+          <div className="mt-10 grid grid-cols-3 gap-4 md:gap-6 max-w-lg">
             <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-4 hover:-translate-y-1 transition-all">
               <p className="text-3xl font-black">AI</p>
-              <p className="text-gray-400 text-sm">Anime Creation</p>
+              <p className="text-gray-400 text-sm">Anime Tools</p>
             </div>
 
             <div className="rounded-2xl bg-white/5 border border-pink-500/20 p-4 hover:-translate-y-1 transition-all">
-              <p className="text-3xl font-black">2</p>
-              <p className="text-gray-400 text-sm">Image Credits</p>
+              <p className="text-3xl font-black">20</p>
+              <p className="text-gray-400 text-sm">Free Credits</p>
             </div>
 
             <div className="rounded-2xl bg-white/5 border border-cyan-500/20 p-4 hover:-translate-y-1 transition-all">
-              <p className="text-3xl font-black">40+</p>
-              <p className="text-gray-400 text-sm">Video Credits</p>
+              <p className="text-3xl font-black">Soon</p>
+              <p className="text-gray-400 text-sm">Real AI APIs</p>
             </div>
           </div>
         </div>
@@ -113,6 +126,10 @@ export default function HomePage() {
           <div className="absolute -bottom-6 -right-6 w-28 h-28 rounded-full bg-cyan-500/10 border border-cyan-500/20 animate-float-slower"></div>
 
           <div className="relative bg-gradient-to-br from-purple-900/50 to-black border border-purple-500/20 rounded-3xl p-6 shadow-2xl shadow-purple-500/20 backdrop-blur-xl max-w-md hover:scale-[1.02] transition-all duration-500">
+            <div className="absolute top-4 left-4 z-10 px-3 py-2 rounded-full bg-black/70 border border-yellow-500/30 text-yellow-300 text-xs font-semibold">
+              Early Access
+            </div>
+
             <img
               src="/mascot.png"
               alt="YumeMotion Mascot"
@@ -122,7 +139,8 @@ export default function HomePage() {
             <div className="mt-6">
               <h3 className="text-2xl font-bold">Dream. Animate. Create.</h3>
               <p className="text-gray-400 mt-2">
-                Build cinematic anime visuals for Shorts, Reels, edits, and stories.
+                Explore the YumeMotion creator workspace before real AI
+                generation goes live.
               </p>
             </div>
           </div>
@@ -138,10 +156,38 @@ export default function HomePage() {
           <span>✨ Prompt Enhancer</span>
           <span>🔍 HD Upscale</span>
           <span>🧼 Background Remover</span>
+          <span>🚀 Early Access</span>
+          <span>🧪 Demo Mode</span>
           <span>🎨 Anime Image Generator</span>
           <span>🖼️ Photo → Anime Video</span>
-          <span>🎬 Text → Anime Video</span>
-          <span>✨ Prompt Enhancer</span>
+        </div>
+      </section>
+
+      {/* Early Access Notice */}
+      <section className="relative z-10 px-6 md:px-16 py-16">
+        <div className="rounded-3xl bg-gradient-to-r from-yellow-900/20 to-purple-900/30 border border-yellow-500/20 p-8 md:p-10 shadow-2xl shadow-purple-500/10">
+          <div className="grid lg:grid-cols-3 gap-8 items-center">
+            <div className="lg:col-span-2">
+              <p className="text-yellow-300 font-semibold">Early Access Notice</p>
+              <h3 className="text-3xl md:text-4xl font-black mt-3">
+                YumeMotion is currently preparing for public launch.
+              </h3>
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                The current version lets users preview the platform, test the
+                account system, understand credits, and explore the generator
+                interface. Real AI image and video generation will be activated
+                after API testing and payment setup are complete.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-black/40 border border-yellow-500/20 p-6 text-center">
+              <p className="text-5xl mb-4 animate-float-small">🧪</p>
+              <h4 className="text-xl font-bold">Demo Mode</h4>
+              <p className="text-gray-400 mt-2 text-sm">
+                No real AI API charges are used right now.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -149,11 +195,12 @@ export default function HomePage() {
       <section className="relative z-10 px-6 md:px-16 py-20">
         <div className="text-center max-w-3xl mx-auto mb-14">
           <h3 className="text-4xl md:text-5xl font-black">
-            Everything You Need To Create Anime Content
+            Everything Planned For Anime Creators
           </h3>
 
           <p className="text-gray-400 mt-5">
-            Start with anime images, then turn your best creations into motion with cinematic effects.
+            YumeMotion is being designed as a complete anime creation workspace
+            for images, videos, thumbnails, prompts, and creator content.
           </p>
         </div>
 
@@ -162,23 +209,26 @@ export default function HomePage() {
             <div className="text-4xl mb-4">🎨</div>
             <h4 className="text-2xl font-bold mb-4">Anime Image Generator</h4>
             <p className="text-gray-400">
-              Create characters, backgrounds, facial expressions, and action poses from prompts.
+              Planned tool for creating anime characters, backgrounds, facial
+              expressions, and action poses from prompts.
             </p>
           </div>
 
           <div className="p-8 rounded-3xl bg-white/5 border border-purple-500/20 hover:scale-105 hover:border-purple-400/50 transition-all shadow-lg shadow-purple-500/5">
             <div className="text-4xl mb-4">🎬</div>
-            <h4 className="text-2xl font-bold mb-4">Image To Anime Video</h4>
+            <h4 className="text-2xl font-bold mb-4">Anime Video Tools</h4>
             <p className="text-gray-400">
-              Turn anime images into short cinematic videos with camera movement and effects.
+              Planned workflow for turning anime images and text scenes into
+              short cinematic video clips.
             </p>
           </div>
 
           <div className="p-8 rounded-3xl bg-white/5 border border-purple-500/20 hover:scale-105 hover:border-cyan-400/40 transition-all shadow-lg shadow-purple-500/5">
             <div className="text-4xl mb-4">⚡</div>
-            <h4 className="text-2xl font-bold mb-4">Motion Effects</h4>
+            <h4 className="text-2xl font-bold mb-4">Creator Effects</h4>
             <p className="text-gray-400">
-              Add rain, energy aura, walking scenes, slow zoom, neon glow, and cinematic motion.
+              Planned effects include rain, energy aura, walking scenes, slow
+              zoom, neon glow, thumbnails, and prompt enhancement.
             </p>
           </div>
         </div>
@@ -192,25 +242,28 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8 mt-12">
             <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6 hover:-translate-y-2 transition-all">
               <p className="text-purple-300 font-bold mb-3">Step 1</p>
-              <h4 className="text-2xl font-bold">Write Your Prompt</h4>
+              <h4 className="text-2xl font-bold">Create An Account</h4>
               <p className="text-gray-400 mt-3">
-                Describe your anime character, world, action, mood, or cinematic scene.
+                Join early access, get starter credits, and explore the creator
+                dashboard.
               </p>
             </div>
 
             <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6 hover:-translate-y-2 transition-all">
               <p className="text-purple-300 font-bold mb-3">Step 2</p>
-              <h4 className="text-2xl font-bold">Choose Style & Effects</h4>
+              <h4 className="text-2xl font-bold">Preview The Tools</h4>
               <p className="text-gray-400 mt-3">
-                Select anime style, image/video type, motion effects, and creative direction.
+                Test the generator interface, tool settings, credit system, and
+                prompt previews in demo mode.
               </p>
             </div>
 
             <div className="rounded-2xl bg-black/40 border border-purple-500/20 p-6 hover:-translate-y-2 transition-all">
               <p className="text-purple-300 font-bold mb-3">Step 3</p>
-              <h4 className="text-2xl font-bold">Generate & Download</h4>
+              <h4 className="text-2xl font-bold">Real AI Launch Soon</h4>
               <p className="text-gray-400 mt-3">
-                Create anime images or videos and use them for content, stories, or Shorts.
+                Real AI generation will be connected after API testing, payment
+                setup, and cost protection are ready.
               </p>
             </div>
           </div>
@@ -226,12 +279,14 @@ export default function HomePage() {
             </h3>
 
             <p className="text-gray-400 mt-5 text-lg">
-              Start free, earn credits through referrals, and upgrade when you need more anime generations.
+              YumeMotion uses a credit system so real AI costs can be controlled
+              safely. In early access, credits help users understand how the
+              future paid generation system will work.
             </p>
 
             <Link href="/pricing">
               <button className="mt-8 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-lg shadow-purple-500/30">
-                View Pricing
+                View Early Access Pricing
               </button>
             </Link>
           </div>
@@ -240,7 +295,9 @@ export default function HomePage() {
             <div className="rounded-3xl bg-gradient-to-r from-pink-500/15 to-purple-600/10 border border-pink-500/30 p-7 shadow-lg shadow-pink-500/10 hover:scale-[1.02] transition-all">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-pink-300 text-sm font-semibold">🎨 Anime Image</p>
+                  <p className="text-pink-300 text-sm font-semibold">
+                    🎨 Anime Image
+                  </p>
                   <h4 className="text-4xl font-black mt-2">2 Credits</h4>
                 </div>
                 <span className="text-4xl">✨</span>
@@ -250,7 +307,9 @@ export default function HomePage() {
             <div className="rounded-3xl bg-gradient-to-r from-purple-500/15 to-blue-600/10 border border-purple-500/30 p-7 shadow-lg shadow-purple-500/10 hover:scale-[1.02] transition-all">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-purple-300 text-sm font-semibold">🖼️ Photo → Anime Video</p>
+                  <p className="text-purple-300 text-sm font-semibold">
+                    🖼️ Photo → Anime Video
+                  </p>
                   <h4 className="text-4xl font-black mt-2">40 Credits</h4>
                 </div>
                 <span className="text-4xl">🎬</span>
@@ -260,7 +319,9 @@ export default function HomePage() {
             <div className="rounded-3xl bg-gradient-to-r from-cyan-500/15 to-purple-600/10 border border-cyan-500/30 p-7 shadow-lg shadow-cyan-500/10 hover:scale-[1.02] transition-all">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-cyan-300 text-sm font-semibold">✍️ Text → Anime Video</p>
+                  <p className="text-cyan-300 text-sm font-semibold">
+                    ✍️ Text → Anime Video
+                  </p>
                   <h4 className="text-4xl font-black mt-2">80 Credits</h4>
                 </div>
                 <span className="text-4xl">⚡</span>
@@ -270,7 +331,9 @@ export default function HomePage() {
             <div className="rounded-3xl bg-gradient-to-r from-yellow-500/15 to-pink-600/10 border border-yellow-500/30 p-7 shadow-lg shadow-yellow-500/10 hover:scale-[1.02] transition-all">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-yellow-300 text-sm font-semibold">🎁 Referral Bonus</p>
+                  <p className="text-yellow-300 text-sm font-semibold">
+                    🎁 Referral Bonus
+                  </p>
                   <h4 className="text-4xl font-black mt-2">+5 Credits</h4>
                 </div>
                 <span className="text-4xl">🚀</span>
@@ -284,17 +347,18 @@ export default function HomePage() {
       <section className="relative z-10 px-6 md:px-16 py-24">
         <div className="rounded-3xl bg-gradient-to-r from-pink-900/30 to-purple-900/50 border border-purple-500/20 p-12 text-center shadow-2xl shadow-purple-500/20">
           <h3 className="text-4xl md:text-6xl font-black">
-            Start Your Anime AI Studio Today
+            Join The YumeMotion Early Access
           </h3>
 
           <p className="text-gray-300 mt-6 max-w-2xl mx-auto text-lg">
-            Build anime visuals, create Shorts, test story ideas, and bring your anime imagination into motion.
+            Create your account, explore the platform, test the dashboard, and
+            be ready when real AI generation launches.
           </p>
 
           <div className="mt-10 flex justify-center gap-4 flex-wrap">
             <Link href="/signup">
               <button className="px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-lg shadow-purple-500/30">
-                Create Free Account
+                Join Early Access
               </button>
             </Link>
 
@@ -380,6 +444,16 @@ export default function HomePage() {
           }
         }
 
+        @keyframes float-small {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-8px);
+          }
+        }
+
         @keyframes gradient {
           0%,
           100% {
@@ -413,6 +487,10 @@ export default function HomePage() {
 
         .animate-float-slower {
           animation: float-slower 9s ease-in-out infinite;
+        }
+
+        .animate-float-small {
+          animation: float-small 3s ease-in-out infinite;
         }
 
         .animate-gradient {
