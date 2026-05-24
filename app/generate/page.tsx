@@ -41,7 +41,7 @@ const tools: Tool[] = [
     category: "Create",
     credits: 2,
     description:
-      "Generate anime characters, scenes, backgrounds, and creator-ready visuals from text prompts.",
+      "Preview the anime image generation workflow. Real AI image generation will be connected after API setup.",
     placeholder:
       "Example: cool anime boy standing in neon Tokyo rain, cinematic lighting, detailed background...",
   },
@@ -52,7 +52,7 @@ const tools: Tool[] = [
     category: "Create",
     credits: 40,
     description:
-      "Turn a still image into an anime-style animated video scene with motion and camera effects.",
+      "Preview how an uploaded anime image can become a cinematic animated video after real API launch.",
     placeholder:
       "Describe motion: blinking eyes, hair moving, camera push-in, glowing aura, rain atmosphere...",
     requiresUpload: true,
@@ -65,7 +65,7 @@ const tools: Tool[] = [
     category: "Create",
     credits: 80,
     description:
-      "Generate a full anime-style video concept from a text scene description.",
+      "Preview the text-to-anime-video workflow. Real text-to-video APIs will be connected after launch.",
     placeholder:
       "Example: anime hero walking through a futuristic neon city at night, rain, glowing sword, cinematic camera motion...",
     paidOnly: true,
@@ -76,7 +76,8 @@ const tools: Tool[] = [
     icon: "✨",
     category: "Create",
     credits: 1,
-    description: "Turn a simple idea into a stronger, detailed anime prompt.",
+    description:
+      "Turn a simple idea into a stronger anime prompt using demo logic. This tool does not use paid AI APIs right now.",
     placeholder: "Example: cool boy in rain",
   },
   {
@@ -85,7 +86,8 @@ const tools: Tool[] = [
     icon: "🔍",
     category: "Edit",
     credits: 4,
-    description: "Improve anime image clarity and upscale it for sharper output.",
+    description:
+      "Preview the HD upscale workflow. Real image enhancement API support will be added later.",
     placeholder: "Optional: describe what quality you want improved...",
     requiresUpload: true,
   },
@@ -96,7 +98,7 @@ const tools: Tool[] = [
     category: "Edit",
     credits: 3,
     description:
-      "Remove the background from an anime image and keep the subject clean.",
+      "Preview background removal workflow. Real background removal processing will be connected later.",
     placeholder: "Optional: transparent PNG anime character",
     requiresUpload: true,
   },
@@ -107,7 +109,7 @@ const tools: Tool[] = [
     category: "Edit",
     credits: 6,
     description:
-      "Create anime-style YouTube thumbnails, Shorts covers, and creator visuals.",
+      "Preview anime-style thumbnail generation workflow for YouTube Shorts, Reels, and creator visuals.",
     placeholder:
       "Example: anime reaction thumbnail, bold composition, dramatic face expression, colorful background...",
   },
@@ -202,7 +204,7 @@ export default function GeneratePage() {
             id: item.id,
             tool: item.title,
             cost: item.cost,
-            result: `${item.title} completed successfully.`,
+            result: `${item.title} demo completed successfully.`,
           }))
         );
       }
@@ -223,7 +225,7 @@ export default function GeneratePage() {
     setEnhancedPrompt("");
 
     if (newTool?.paidOnly && planName === "Free") {
-      setNotice("This tool is available only on paid plans.");
+      setNotice("This paid tool is locked on the Free plan during early access.");
     }
   }
 
@@ -281,14 +283,10 @@ export default function GeneratePage() {
     setImagesMade(newImagesMade);
     setVideosMade(newVideosMade);
 
-    let message = `${tool.label} completed successfully.`;
+    let message = `${tool.label} demo completed successfully. Real AI output will be enabled after API launch.`;
 
     if (tool.key === "prompt-enhancer") {
-      message = "Prompt enhanced successfully.";
-    }
-
-    if (tool.key === "photo-anime-video" || tool.key === "text-anime-video") {
-      message = `${tool.label} generated successfully.`;
+      message = "Prompt enhanced successfully in demo mode.";
     }
 
     setResultMessage(message);
@@ -317,7 +315,9 @@ export default function GeneratePage() {
     }
 
     if (toolLocked) {
-      setNotice("Upgrade your plan to unlock video tools.");
+      setNotice(
+        "This video tool is locked on the Free plan. Upgrade options will be enabled after payment setup."
+      );
       return;
     }
 
@@ -351,7 +351,7 @@ export default function GeneratePage() {
       }
 
       finishRun(selectedNow);
-    }, 2200);
+    }, 1600);
   }
 
   async function clearHistory() {
@@ -402,7 +402,7 @@ export default function GeneratePage() {
           />
           <div>
             <h1 className="text-xl md:text-2xl font-bold">YumeMotion</h1>
-            <p className="text-xs text-gray-400">Creator Workspace</p>
+            <p className="text-xs text-gray-400">Early Access Workspace</p>
           </div>
         </Link>
 
@@ -439,6 +439,27 @@ export default function GeneratePage() {
       </nav>
 
       <main className="relative z-10 px-3 sm:px-4 md:px-8 py-4 md:py-6">
+        {/* Early Access Notice */}
+        <section className="mb-5 rounded-3xl bg-yellow-500/10 border border-yellow-500/30 p-4 md:p-5 backdrop-blur-xl animate-fade-in-up">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div>
+              <p className="text-yellow-300 font-semibold">
+                ⚠️ Early Access Demo Mode
+              </p>
+              <p className="text-gray-300 text-sm mt-1">
+                This workspace currently previews the generation flow. Real AI
+                APIs are not connected yet, so no paid API charges are used.
+              </p>
+            </div>
+
+            <Link href="/pricing">
+              <button className="w-full md:w-auto px-5 py-3 rounded-2xl bg-white/5 border border-yellow-500/20 hover:bg-white/10 transition-all text-sm">
+                View Launch Plans
+              </button>
+            </Link>
+          </div>
+        </section>
+
         {/* Android/Mobile Tool Selector */}
         <section className="lg:hidden mb-5 rounded-3xl bg-white/5 border border-purple-500/20 p-4 backdrop-blur-xl shadow-2xl shadow-purple-500/10 animate-fade-in-up">
           <div className="flex items-center justify-between gap-3 mb-4">
@@ -486,7 +507,7 @@ export default function GeneratePage() {
               <p className="text-gray-400 text-sm">Workspace</p>
               <h2 className="text-2xl font-black mt-2">Generate Tools</h2>
               <p className="text-gray-400 text-sm mt-2">
-                Pick a tool from the sidebar.
+                Pick a demo tool from the sidebar.
               </p>
             </div>
 
@@ -585,7 +606,9 @@ export default function GeneratePage() {
 
               <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 md:gap-6">
                 <div>
-                  <p className="text-sm text-purple-300">Selected AI Tool</p>
+                  <p className="text-sm text-purple-300">
+                    Selected Demo Tool
+                  </p>
 
                   <h2 className="text-3xl md:text-4xl font-black mt-2 flex items-center gap-3">
                     <span className="animate-bounce-soft">
@@ -600,7 +623,7 @@ export default function GeneratePage() {
                 </div>
 
                 <div className="rounded-2xl bg-black/40 border border-purple-500/20 px-5 py-4 md:px-6 md:py-5 min-w-[150px] hover:scale-105 transition-all">
-                  <p className="text-sm text-gray-400">Credits Required</p>
+                  <p className="text-sm text-gray-400">Demo Credits</p>
                   <h3 className="text-3xl md:text-4xl font-black mt-2">
                     {currentTool.credits}
                   </h3>
@@ -645,7 +668,8 @@ export default function GeneratePage() {
                     {currentTool.label}
                   </h3>
                   <p className="text-gray-400 mt-2 text-sm md:text-base">
-                    Configure your AI generation settings below.
+                    Configure the demo workflow. Real AI output will be enabled
+                    after API launch.
                   </p>
                 </div>
 
@@ -654,7 +678,7 @@ export default function GeneratePage() {
                     onClick={() => router.push("/pricing")}
                     className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-lg shadow-purple-500/30"
                   >
-                    Upgrade to Unlock
+                    Upgrade Preview
                   </button>
                 )}
               </div>
@@ -671,7 +695,8 @@ export default function GeneratePage() {
                       Upload anime image or character image
                     </p>
                     <p className="text-gray-400 mt-2 text-sm md:text-base">
-                      Upload support will be connected later for real AI processing.
+                      Demo upload UI only. Real upload processing will be
+                      connected later.
                     </p>
 
                     <button className="mt-5 w-full sm:w-auto px-6 py-3 rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:scale-105 transition-all">
@@ -856,17 +881,17 @@ export default function GeneratePage() {
               {currentTool.key === "anime-image" && (
                 <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4 md:p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
-                    Anime Image Settings
+                    Anime Image Demo Settings
                   </p>
 
                   <p className="text-gray-400 mt-2 text-sm">
-                    Use detailed prompts for better anime results. Later these
-                    settings will be sent to the real image API.
+                    This preview shows how your final prompt will be prepared
+                    before being sent to a real anime image API after launch.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
                     <div className="rounded-xl bg-white/5 border border-purple-500/20 p-4">
-                      <p className="text-gray-400 text-sm">Base Cost</p>
+                      <p className="text-gray-400 text-sm">Demo Cost</p>
                       <h4 className="text-2xl font-black mt-1">2 Credits</h4>
                     </div>
 
@@ -902,17 +927,17 @@ export default function GeneratePage() {
               {currentTool.key === "photo-anime-video" && (
                 <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4 md:p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
-                    Photo → Anime Video Settings
+                    Photo → Anime Video Demo Settings
                   </p>
 
                   <p className="text-gray-400 mt-2 text-sm">
-                    Upload an anime image, choose motion settings, and describe
-                    how the scene should move.
+                    This preview shows how image-to-video settings will work
+                    after real AI video APIs are connected.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-5">
                     <div className="rounded-xl bg-white/5 border border-purple-500/20 p-4">
-                      <p className="text-gray-400 text-sm">Base Cost</p>
+                      <p className="text-gray-400 text-sm">Demo Cost</p>
                       <h4 className="text-2xl font-black mt-1">40 Credits</h4>
                     </div>
 
@@ -955,17 +980,17 @@ export default function GeneratePage() {
               {currentTool.key === "text-anime-video" && (
                 <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4 md:p-5 animate-fade-in-up">
                   <p className="text-purple-300 font-semibold">
-                    Text → Anime Video Settings
+                    Text → Anime Video Demo Settings
                   </p>
 
                   <p className="text-gray-400 mt-2 text-sm">
-                    Describe an anime scene and choose the scene type, mood, and
-                    duration.
+                    This preview shows how text-to-video settings will be sent
+                    to a real anime video API after launch.
                   </p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
                     <div className="rounded-xl bg-white/5 border border-purple-500/20 p-4">
-                      <p className="text-gray-400 text-sm">Base Cost</p>
+                      <p className="text-gray-400 text-sm">Demo Cost</p>
                       <h4 className="text-2xl font-black mt-1">80 Credits</h4>
                     </div>
 
@@ -1045,7 +1070,9 @@ export default function GeneratePage() {
                   className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-[1.02] transition-all font-semibold shadow-lg shadow-purple-500/30 disabled:opacity-70 group"
                 >
                   <span className="relative z-10">
-                    {isRunning ? "Processing..." : `Run ${currentTool.label}`}
+                    {isRunning
+                      ? "Processing Demo..."
+                      : `Run ${currentTool.label} Demo`}
                   </span>
 
                   <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
@@ -1069,10 +1096,10 @@ export default function GeneratePage() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold">
-                    Recent Activity
+                    Recent Demo Activity
                   </h3>
                   <p className="text-gray-400 mt-2 text-sm md:text-base">
-                    Your latest tool usage appears here.
+                    Your latest demo tool usage appears here.
                   </p>
                 </div>
 
@@ -1088,7 +1115,7 @@ export default function GeneratePage() {
 
               {history.length === 0 ? (
                 <div className="mt-6 rounded-2xl bg-black/30 border border-purple-500/20 p-6 text-gray-400 text-sm md:text-base">
-                  No recent activity yet.
+                  No recent demo activity yet.
                 </div>
               ) : (
                 <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-6">
@@ -1102,7 +1129,7 @@ export default function GeneratePage() {
                         {item.result}
                       </h4>
                       <p className="text-gray-400 mt-3 text-sm">
-                        Credit Cost: {item.cost}
+                        Demo Credit Cost: {item.cost}
                       </p>
                     </div>
                   ))}
