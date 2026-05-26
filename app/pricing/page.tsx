@@ -1,12 +1,70 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+
+type Plan = {
+  name: string;
+  price: string;
+  testAmountLabel: string;
+  testAmountPaise: number;
+  subtitle: string;
+  credits: string;
+  features: string[];
+  button: string;
+  link: string;
+  highlighted: boolean;
+  glow: string;
+  border: string;
+  icon: string;
+  paid: boolean;
+};
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: RazorpayOptions) => {
+      open: () => void;
+    };
+  }
+}
+
+type RazorpayOptions = {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void;
+  prefill: {
+    name: string;
+    email: string;
+    contact: string;
+  };
+  theme: {
+    color: string;
+  };
+  modal: {
+    ondismiss: () => void;
+  };
+};
+
+type RazorpayResponse = {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+};
 
 export default function PricingPage() {
-  const plans = [
+  const [paymentMessage, setPaymentMessage] = useState("");
+  const [loadingPlan, setLoadingPlan] = useState("");
+
+  const plans: Plan[] = [
     {
       name: "Free",
       price: "$0",
+      testAmountLabel: "Free",
+      testAmountPaise: 0,
       subtitle: "For testing YumeMotion early access",
       credits: "20 demo credits",
       features: [
@@ -21,10 +79,13 @@ export default function PricingPage() {
       glow: "from-purple-500/15 to-pink-500/10",
       border: "border-purple-500/20",
       icon: "🌙",
+      paid: false,
     },
     {
       name: "Starter",
       price: "$4.99",
+      testAmountLabel: "₹99 test payment",
+      testAmountPaise: 9900,
       subtitle: "Coming soon for casual creators",
       credits: "300 credits/month",
       features: [
@@ -33,16 +94,19 @@ export default function PricingPage() {
         "Image + video creation access",
         "Launch pricing preview",
       ],
-      button: "Preview Starter",
+      button: "Test Pay Starter",
       link: "/signup",
       highlighted: false,
       glow: "from-pink-500/15 to-purple-500/10",
       border: "border-pink-500/25",
       icon: "✨",
+      paid: true,
     },
     {
       name: "Creator",
       price: "$9.99",
+      testAmountLabel: "₹199 test payment",
+      testAmountPaise: 19900,
       subtitle: "Coming soon for Shorts creators",
       credits: "1,000 credits/month",
       features: [
@@ -51,16 +115,19 @@ export default function PricingPage() {
         "HD anime video exports planned",
         "Creator dashboard analytics",
       ],
-      button: "Preview Creator",
+      button: "Test Pay Creator",
       link: "/signup",
       highlighted: true,
       glow: "from-pink-500/25 to-purple-600/20",
       border: "border-purple-400",
       icon: "🚀",
+      paid: true,
     },
     {
       name: "Pro",
       price: "$19.99",
+      testAmountLabel: "₹499 test payment",
+      testAmountPaise: 49900,
       subtitle: "Coming soon for serious creators",
       credits: "2,500 credits/month",
       features: [
@@ -69,14 +136,125 @@ export default function PricingPage() {
         "Commercial usage support planned",
         "Early access to new tools",
       ],
-      button: "Preview Pro",
+      button: "Test Pay Pro",
       link: "/signup",
       highlighted: false,
       glow: "from-cyan-500/15 to-purple-600/10",
       border: "border-cyan-500/25",
       icon: "👑",
+      paid: true,
     },
   ];
+
+  function loadRazorpayScript() {
+    return new Promise<boolean>((resolve) => {
+      const existingScript = document.getElementById("razorpay-checkout");
+
+      if (existingScript) {
+        resolve(true);
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.id = "razorpay-checkout";
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+
+      script.onload = () => {
+        resolve(true);
+      };
+
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  }
+
+  async function handleTestPayment(plan: Plan) {
+    try {
+      setPaymentMessage("");
+      setLoadingPlan(plan.name);
+
+      const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
+      if (!razorpayKeyId) {
+        setPaymentMessage(
+          "Razorpay public key is missing. Add NEXT_PUBLIC_RAZORPAY_KEY_ID in .env.local."
+        );
+        setLoadingPlan("");
+        return;
+      }
+
+      const scriptLoaded = await loadRazorpayScript();
+
+      if (!scriptLoaded || !window.Razorpay) {
+        setPaymentMessage("Razorpay checkout failed to load. Please try again.");
+        setLoadingPlan("");
+        return;
+      }
+
+      const orderResponse = await fetch("/api/razorpay/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          planName: plan.name,
+          amount: plan.testAmountPaise,
+        }),
+      });
+
+      const orderData = await orderResponse.json();
+
+      if (!orderResponse.ok || !orderData.success) {
+        setPaymentMessage(
+          orderData.message || "Failed to create Razorpay test order."
+        );
+        setLoadingPlan("");
+        return;
+      }
+
+      const options: RazorpayOptions = {
+        key: razorpayKeyId,
+        amount: plan.testAmountPaise,
+        currency: "INR",
+        name: "YumeMotion",
+        description: `${plan.name} Plan Test Payment`,
+        order_id: orderData.order.id,
+        prefill: {
+          name: "YumeMotion Creator",
+          email: "test@yumemotion.com",
+          contact: "9999999999",
+        },
+        theme: {
+          color: "#9333ea",
+        },
+        modal: {
+          ondismiss: () => {
+            setPaymentMessage("Test payment popup closed.");
+            setLoadingPlan("");
+          },
+        },
+        handler: function (response: RazorpayResponse) {
+          setPaymentMessage(
+            `Test payment successful for ${plan.name}. Payment ID: ${response.razorpay_payment_id}`
+          );
+          setLoadingPlan("");
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      setPaymentMessage(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong during test payment."
+      );
+      setLoadingPlan("");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-black text-white overflow-hidden">
@@ -130,7 +308,7 @@ export default function PricingPage() {
         <section className="text-center max-w-4xl mx-auto animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6 shadow-lg shadow-purple-500/10">
             <span className="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-            Early Access Pricing Preview
+            Razorpay Test Mode Enabled
           </div>
 
           <h2 className="text-5xl md:text-6xl font-black leading-tight">
@@ -142,21 +320,26 @@ export default function PricingPage() {
 
           <p className="text-gray-300 mt-6 text-lg">
             YumeMotion is currently in early access. These plans show the
-            expected launch pricing and credit structure. Payments are not live
-            yet.
+            expected launch pricing and credit structure. Payments are being
+            tested using Razorpay test mode.
           </p>
 
           <div className="mt-8 rounded-3xl bg-yellow-500/10 border border-yellow-500/30 p-6 text-left max-w-3xl mx-auto">
             <p className="text-yellow-300 font-semibold">
-              ⚠️ Payments Coming Soon
+              ⚠️ Test Payments Only
             </p>
             <p className="text-gray-300 mt-2 text-sm leading-relaxed">
-              Current plans are preview-only. You can create an account and test
-              the demo workflow, but real paid subscriptions and real AI API
-              generation will be enabled only after payment gateway and API
-              setup are complete.
+              These buttons open Razorpay test checkout. No real customer money
+              is collected in test mode. Live payments will be enabled only after
+              KYC, payment gateway approval, and final launch setup.
             </p>
           </div>
+
+          {paymentMessage && (
+            <div className="mt-6 rounded-2xl bg-purple-500/10 border border-purple-500/20 p-4 text-purple-200 text-left max-w-3xl mx-auto">
+              {paymentMessage}
+            </div>
+          )}
         </section>
 
         {/* Pricing Cards */}
@@ -195,7 +378,7 @@ export default function PricingPage() {
                 </div>
 
                 <div className="mt-3 inline-flex px-3 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-xs font-semibold">
-                  Preview only
+                  {plan.testAmountLabel}
                 </div>
 
                 <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4">
@@ -211,23 +394,73 @@ export default function PricingPage() {
                   ))}
                 </ul>
 
-                <Link href={plan.link}>
+                {plan.paid ? (
                   <button
-                    className={`relative overflow-hidden w-full mt-8 py-4 rounded-2xl font-semibold transition-all group ${
+                    onClick={() => handleTestPayment(plan)}
+                    disabled={loadingPlan === plan.name}
+                    className={`relative overflow-hidden w-full mt-8 py-4 rounded-2xl font-semibold transition-all group disabled:opacity-60 disabled:cursor-not-allowed ${
                       plan.highlighted
                         ? "bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-[1.02] shadow-lg shadow-purple-500/30"
                         : "bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/50"
                     }`}
                   >
-                    <span className="relative z-10">{plan.button}</span>
+                    <span className="relative z-10">
+                      {loadingPlan === plan.name
+                        ? "Opening Checkout..."
+                        : plan.button}
+                    </span>
+
                     {plan.highlighted && (
                       <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
                     )}
                   </button>
-                </Link>
+                ) : (
+                  <Link href={plan.link}>
+                    <button className="relative overflow-hidden w-full mt-8 py-4 rounded-2xl font-semibold transition-all group bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/50">
+                      <span className="relative z-10">{plan.button}</span>
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           ))}
+        </section>
+
+        {/* Test Card Info */}
+        <section className="mt-14 rounded-3xl bg-black/40 border border-purple-500/20 p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5 animate-fade-in-up">
+          <h3 className="text-3xl font-bold">How To Test Razorpay</h3>
+
+          <p className="text-gray-300 mt-4 leading-relaxed">
+            Click a test payment button above. Razorpay checkout should open in
+            test mode. Use Razorpay test card or test UPI details from your
+            Razorpay dashboard. No real money is collected in test mode.
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-5 mt-6">
+            <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <p className="text-3xl mb-3">🧪</p>
+              <h4 className="font-bold">Test Mode</h4>
+              <p className="text-gray-400 text-sm mt-2">
+                Safe for checking payment flow without real money.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <p className="text-3xl mb-3">🛡️</p>
+              <h4 className="font-bold">No Live Charges</h4>
+              <p className="text-gray-400 text-sm mt-2">
+                Live payments require Razorpay KYC and live mode activation.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
+              <p className="text-3xl mb-3">🚀</p>
+              <h4 className="font-bold">Launch Ready Later</h4>
+              <p className="text-gray-400 text-sm mt-2">
+                After approval, test keys can be replaced with live keys.
+              </p>
+            </div>
+          </div>
         </section>
 
         {/* Early Access Explanation */}
@@ -326,7 +559,7 @@ export default function PricingPage() {
 
           <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
             Create your account, test the platform workflow, and be ready when
-            real AI generation and payments are activated.
+            real AI generation and live payments are activated.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
