@@ -7,15 +7,15 @@ export default function PricingPage() {
     {
       name: "Free",
       price: "$0",
-      subtitle: "For testing YumeMotion",
-      credits: "20 credits",
+      subtitle: "For testing YumeMotion early access",
+      credits: "20 demo credits",
       features: [
-        "Anime image generation",
-        "Basic anime styles",
-        "Limited downloads",
+        "Explore anime image workflow",
+        "Use demo prompt enhancer",
+        "Preview generator tools",
         "Referral bonus support",
       ],
-      button: "Start Free",
+      button: "Join Free",
       link: "/signup",
       highlighted: false,
       glow: "from-purple-500/15 to-pink-500/10",
@@ -25,16 +25,16 @@ export default function PricingPage() {
     {
       name: "Starter",
       price: "$4.99",
-      subtitle: "For casual creators",
+      subtitle: "Coming soon for casual creators",
       credits: "300 credits/month",
       features: [
         "Everything in Free",
         "More anime styles",
-        "Faster generation",
-        "Image + video creation",
+        "Image + video creation access",
+        "Launch pricing preview",
       ],
-      button: "Upgrade Starter",
-      link: "/dashboard",
+      button: "Preview Starter",
+      link: "/signup",
       highlighted: false,
       glow: "from-pink-500/15 to-purple-500/10",
       border: "border-pink-500/25",
@@ -43,16 +43,16 @@ export default function PricingPage() {
     {
       name: "Creator",
       price: "$9.99",
-      subtitle: "Best for Shorts creators",
+      subtitle: "Coming soon for Shorts creators",
       credits: "1,000 credits/month",
       features: [
         "Everything in Starter",
-        "Priority generation",
-        "HD anime video exports",
+        "Priority generation planned",
+        "HD anime video exports planned",
         "Creator dashboard analytics",
       ],
-      button: "Choose Creator",
-      link: "/dashboard",
+      button: "Preview Creator",
+      link: "/signup",
       highlighted: true,
       glow: "from-pink-500/25 to-purple-600/20",
       border: "border-purple-400",
@@ -61,16 +61,16 @@ export default function PricingPage() {
     {
       name: "Pro",
       price: "$19.99",
-      subtitle: "For serious AI anime creators",
+      subtitle: "Coming soon for serious creators",
       credits: "2,500 credits/month",
       features: [
         "Everything in Creator",
-        "Premium video effects",
-        "Commercial usage support",
+        "Premium video effects planned",
+        "Commercial usage support planned",
         "Early access to new tools",
       ],
-      button: "Go Pro",
-      link: "/dashboard",
+      button: "Preview Pro",
+      link: "/signup",
       highlighted: false,
       glow: "from-cyan-500/15 to-purple-600/10",
       border: "border-cyan-500/25",
@@ -99,7 +99,7 @@ export default function PricingPage() {
 
           <div>
             <h1 className="text-2xl font-bold">YumeMotion</h1>
-            <p className="text-xs text-gray-400">Pricing</p>
+            <p className="text-xs text-gray-400">Early Access Pricing</p>
           </div>
         </Link>
 
@@ -110,9 +110,15 @@ export default function PricingPage() {
             </button>
           </Link>
 
+          <Link href="/generate">
+            <button className="px-4 py-2 text-sm md:text-base rounded-xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
+              Preview Generator
+            </button>
+          </Link>
+
           <Link href="/signup">
             <button className="relative overflow-hidden px-4 py-2 text-sm md:text-base rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all shadow-lg shadow-purple-500/30 group">
-              <span className="relative z-10">Start Free</span>
+              <span className="relative z-10">Join Early Access</span>
               <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
             </button>
           </Link>
@@ -124,7 +130,7 @@ export default function PricingPage() {
         <section className="text-center max-w-4xl mx-auto animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6 shadow-lg shadow-purple-500/10">
             <span className="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-            Credit-Based AI Anime Creation
+            Early Access Pricing Preview
           </div>
 
           <h2 className="text-5xl md:text-6xl font-black leading-tight">
@@ -135,9 +141,22 @@ export default function PricingPage() {
           </h2>
 
           <p className="text-gray-300 mt-6 text-lg">
-            Start free, earn bonus credits through referrals, and upgrade when
-            you need more anime image and video generations.
+            YumeMotion is currently in early access. These plans show the
+            expected launch pricing and credit structure. Payments are not live
+            yet.
           </p>
+
+          <div className="mt-8 rounded-3xl bg-yellow-500/10 border border-yellow-500/30 p-6 text-left max-w-3xl mx-auto">
+            <p className="text-yellow-300 font-semibold">
+              ⚠️ Payments Coming Soon
+            </p>
+            <p className="text-gray-300 mt-2 text-sm leading-relaxed">
+              Current plans are preview-only. You can create an account and test
+              the demo workflow, but real paid subscriptions and real AI API
+              generation will be enabled only after payment gateway and API
+              setup are complete.
+            </p>
+          </div>
         </section>
 
         {/* Pricing Cards */}
@@ -156,7 +175,7 @@ export default function PricingPage() {
             >
               {plan.highlighted && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-sm font-bold shadow-lg shadow-purple-500/30 animate-float-small">
-                  Most Popular
+                  Popular Preview
                 </div>
               )}
 
@@ -173,6 +192,10 @@ export default function PricingPage() {
                 <div className="mt-8">
                   <span className="text-5xl font-black">{plan.price}</span>
                   <span className="text-gray-400"> / month</span>
+                </div>
+
+                <div className="mt-3 inline-flex px-3 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-xs font-semibold">
+                  Preview only
                 </div>
 
                 <div className="mt-6 rounded-2xl bg-black/40 border border-purple-500/20 p-4">
@@ -207,18 +230,19 @@ export default function PricingPage() {
           ))}
         </section>
 
-        {/* Safety Note */}
+        {/* Early Access Explanation */}
         <section className="mt-14 rounded-3xl bg-gradient-to-r from-purple-900/40 to-pink-900/20 border border-purple-500/20 p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/10 animate-fade-in-up">
           <div className="grid lg:grid-cols-3 gap-6 items-center">
             <div className="lg:col-span-2">
               <h3 className="text-3xl font-bold">
-                Built To Protect Creator Credits
+                Why YumeMotion Uses Credits
               </h3>
 
-              <p className="text-gray-300 mt-4">
-                Every generation uses credits so users understand the value of
-                AI creation. Video tools cost more credits because video APIs
-                are more expensive than image generation.
+              <p className="text-gray-300 mt-4 leading-relaxed">
+                Real AI image and video APIs have usage costs. YumeMotion uses a
+                credit system so generation costs can be controlled safely. In
+                early access, credits are used to preview how the real paid
+                system will work after launch.
               </p>
             </div>
 
@@ -227,13 +251,21 @@ export default function PricingPage() {
               <p className="text-purple-300 font-semibold">
                 No unlimited generation
               </p>
+              <p className="text-gray-400 text-sm mt-2">
+                This protects your platform from API cost loss.
+              </p>
             </div>
           </div>
         </section>
 
         {/* Credit Info */}
         <section className="mt-14 rounded-3xl bg-white/5 border border-purple-500/20 p-8 backdrop-blur-xl shadow-2xl shadow-purple-500/5 animate-fade-in-up">
-          <h3 className="text-3xl font-bold">How Credits Work</h3>
+          <h3 className="text-3xl font-bold">Planned Credit Costs</h3>
+
+          <p className="text-gray-400 mt-3">
+            These are the current planned credit costs for launch. Final pricing
+            may change after API cost testing.
+          </p>
 
           <div className="grid gap-5 mt-6">
             <div className="rounded-3xl bg-gradient-to-r from-pink-500/15 to-purple-600/10 border border-pink-500/30 p-7 shadow-lg shadow-pink-500/10 hover:scale-[1.02] transition-all">
@@ -283,6 +315,33 @@ export default function PricingPage() {
                 <span className="text-4xl animate-float-small">🚀</span>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Launch CTA */}
+        <section className="mt-14 rounded-3xl bg-gradient-to-r from-pink-900/30 to-purple-900/50 border border-purple-500/20 p-10 text-center shadow-2xl shadow-purple-500/10 animate-fade-in-up">
+          <h3 className="text-4xl font-black">
+            Join Early Access Before Launch
+          </h3>
+
+          <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+            Create your account, test the platform workflow, and be ready when
+            real AI generation and payments are activated.
+          </p>
+
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/signup">
+              <button className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 hover:scale-105 transition-all font-semibold shadow-lg shadow-purple-500/30 group">
+                <span className="relative z-10">Join Early Access</span>
+                <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></span>
+              </button>
+            </Link>
+
+            <Link href="/generate">
+              <button className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white/5 border border-purple-500/20 hover:bg-white/10 hover:border-purple-400/60 transition-all">
+                Preview Generator
+              </button>
+            </Link>
           </div>
         </section>
       </main>
