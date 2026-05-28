@@ -171,6 +171,38 @@ export default function PricingPage() {
     });
   }
 
+  async function verifyPayment(
+    plan: Plan,
+    razorpayResponse: RazorpayResponse
+  ) {
+    const verifyResponse = await fetch("/api/razorpay/verify-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        planName: plan.name,
+        razorpay_order_id: razorpayResponse.razorpay_order_id,
+        razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+        razorpay_signature: razorpayResponse.razorpay_signature,
+      }),
+    });
+
+    const verifyData = await verifyResponse.json();
+
+    if (!verifyResponse.ok || !verifyData.success) {
+      setPaymentMessage(
+        verifyData.message ||
+          "Payment completed, but server verification failed."
+      );
+      return;
+    }
+
+    setPaymentMessage(
+      `Test payment verified successfully for ${plan.name}. Payment ID: ${razorpayResponse.razorpay_payment_id}`
+    );
+  }
+
   async function handleTestPayment(plan: Plan) {
     try {
       setPaymentMessage("");
@@ -236,10 +268,9 @@ export default function PricingPage() {
             setLoadingPlan("");
           },
         },
-        handler: function (response: RazorpayResponse) {
-          setPaymentMessage(
-            `Test payment successful for ${plan.name}. Payment ID: ${response.razorpay_payment_id}`
-          );
+        handler: async function (response: RazorpayResponse) {
+          setPaymentMessage("Payment completed. Verifying on server...");
+          await verifyPayment(plan, response);
           setLoadingPlan("");
         },
       };
@@ -308,7 +339,7 @@ export default function PricingPage() {
         <section className="text-center max-w-4xl mx-auto animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 text-sm mb-6 shadow-lg shadow-purple-500/10">
             <span className="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-            Razorpay Test Mode Enabled
+            Razorpay Test Mode With Server Verification
           </div>
 
           <h2 className="text-5xl md:text-6xl font-black leading-tight">
@@ -321,7 +352,7 @@ export default function PricingPage() {
           <p className="text-gray-300 mt-6 text-lg">
             YumeMotion is currently in early access. These plans show the
             expected launch pricing and credit structure. Payments are being
-            tested using Razorpay test mode.
+            tested using Razorpay test mode with server-side verification.
           </p>
 
           <div className="mt-8 rounded-3xl bg-yellow-500/10 border border-yellow-500/30 p-6 text-left max-w-3xl mx-auto">
@@ -330,8 +361,8 @@ export default function PricingPage() {
             </p>
             <p className="text-gray-300 mt-2 text-sm leading-relaxed">
               These buttons open Razorpay test checkout. No real customer money
-              is collected in test mode. Live payments will be enabled only after
-              KYC, payment gateway approval, and final launch setup.
+              is collected in test mode. After payment completion, the server
+              verifies the Razorpay signature before showing success.
             </p>
           </div>
 
@@ -447,9 +478,9 @@ export default function PricingPage() {
 
             <div className="rounded-2xl bg-white/5 border border-purple-500/20 p-5">
               <p className="text-3xl mb-3">🛡️</p>
-              <h4 className="font-bold">No Live Charges</h4>
+              <h4 className="font-bold">Server Verification</h4>
               <p className="text-gray-400 text-sm mt-2">
-                Live payments require Razorpay KYC and live mode activation.
+                Razorpay signature is verified by your backend API.
               </p>
             </div>
 
